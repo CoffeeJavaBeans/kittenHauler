@@ -1,32 +1,31 @@
-import Phaser from "phaser";
-import logoImg from "./assets/logo.png";
+import Phaser from 'phaser';
+//import logoImg from './assets/logo.png';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from '../components/App.js';
+import main from '../javascript';
 
-const config = {
-  type: Phaser.AUTO,
-  parent: "phaser-example",
-  width: 800,
-  height: 600,
-  scene: {
-    preload: preload,
-    create: create
+console.log(main);
+//main game here
+let game;
+
+let gameOptions = main.global;
+
+//playGame scene
+class playGame extends Phaser.Scene {
+  constructor() {
+    super('PlayGame');
   }
+}
+
+playGame.prototype.preload = main.preload;
+
+window.onload = function() {
+  let gameConfig = main.buildConfig(Phaser, playGame);
+  game = new Phaser.Game(gameConfig);
+  window.focus();
+  //main.resize();
+  //window.addEventListener('resize', main.resize, false);
 };
 
-const game = new Phaser.Game(config);
-
-function preload() {
-  this.load.image("logo", logoImg);
-}
-
-function create() {
-  const logo = this.add.image(400, 150, "logo");
-
-  this.tweens.add({
-    targets: logo,
-    y: 450,
-    duration: 2000,
-    ease: "Power2",
-    yoyo: true,
-    loop: -1
-  });
-}
+ReactDOM.render(<App />, document.getElementById('root'));
