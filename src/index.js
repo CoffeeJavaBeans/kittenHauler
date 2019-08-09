@@ -1,31 +1,22 @@
 import Phaser from 'phaser';
+//import global from '../javascript/global';
 //import logoImg from './assets/logo.png';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from '../components/App.js';
-import main from '../javascript';
+import playGame from '../javascript/playGame';
+import buildConfig from '../javascript/buildConfig';
+import resize from '../javascript/resize';
 
-console.log(main);
 //main game here
-let game;
-
-let gameOptions = main.global;
-
-//playGame scene
-class playGame extends Phaser.Scene {
-  constructor() {
-    super('PlayGame');
-  }
-}
-
-playGame.prototype.preload = main.preload;
 
 window.onload = function() {
-  let gameConfig = main.buildConfig(Phaser, playGame);
-  game = new Phaser.Game(gameConfig);
+  let gameConfig = buildConfig(playGame);
+  //let game = new Phaser.Game(gameConfig);
+  let game = new playGame(gameConfig);
   window.focus();
-  //main.resize();
-  //window.addEventListener('resize', main.resize, false);
+  game.resize();
+  window.addEventListener('resize', resize, false);
 };
 
 ReactDOM.render(<App />, document.getElementById('root'));

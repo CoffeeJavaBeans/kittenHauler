@@ -1,10 +1,5 @@
-// function preload(thisContext) {
-//   thisContext.playgame.load.image('platform', 'platform.png');
-//   thisContext.playGame.load.image('player', 'player.png');
-// }
-
 const preload = function() {
-  this.load.image('platform', 'platform.png');
+  this.load.image('platform', './src/assets/platform.png');
 };
 
 export default preload;

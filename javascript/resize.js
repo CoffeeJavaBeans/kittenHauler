@@ -4,7 +4,7 @@ function resize() {
   let windowWidth = window.innerWidth;
   let windowHeight = window.innerHeight;
   let windowRatio = windowWidth / windowHeight;
-  let gameRatio = game.config.width / game.config.height;
+  let gameRatio = this.game.config.width / this.game.config.height;
   if (windowRatio < gameRatio) {
     canvas.style.width = windowWidth + 'px';
     canvas.style.height = windowWidth / gameRatio + 'px';
