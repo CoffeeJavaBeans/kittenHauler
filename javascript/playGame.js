@@ -9,12 +9,11 @@ import jump from './jump';
 import update from './update';
 
 class playGame extends Phaser.Scene {
-  constructor(gameConfig) {
+  constructor() {
     super('PlayGame');
     this.gameOptions = global;
-    //this.gameConfig = buildConfig();
-    this.gameConfig = gameConfig;
-    this.game = new Phaser.Game(gameConfig);
+    this.gameConfig = buildConfig(this);
+    this.game = new Phaser.Game(this.gameConfig);
     this.platform = '';
   }
 }
