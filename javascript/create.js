@@ -1,5 +1,7 @@
 const create = function() {
-  console.log(this);
+  // adding background
+  this.add.image(0, 0, 'background').setOrigin(0, 0);
+
   // group with all active platforms.
   this.platformGroup = this.add.group({
     // once a platform is removed, it's added to the pool
@@ -20,7 +22,7 @@ const create = function() {
   this.playerJumps = 0;
 
   // adding a platform to the game, the arguments are platform width and x position
-  this.addPlatform(this.game.config.width, this.game.config.width / 2);
+  this.addPlatform(this.gameConfig.width, this.gameConfig.width / 2);
 
   // adding the player;
   this.player = this.physics.add.sprite(
