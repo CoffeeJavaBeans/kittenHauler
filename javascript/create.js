@@ -3,6 +3,12 @@ const create = function() {
   // adding background
   this.add.image(0, 0, 'background').setOrigin(0, 0);
 
+  //add score to board
+  this.scoreText = this.add.text(16, 16, 'score: 0', {
+    fontSize: '32px',
+    fill: '#000'
+  });
+
   // group with all active platforms.
   this.platformGroup = this.add.group({
     // once a platform is removed, it's added to the pool
@@ -61,7 +67,21 @@ const create = function() {
         repeat: 5,
         setXY: { x: 12, y: 10, stepX: 100 }
       });
-
+      this.bombs = this.physics.add.group({
+        key: 'bomb',
+        repeat: 4,
+        setXY: { x: 55, y: 55, stepX: 100 }
+      });
+      this.bombs.children.iterate(this.addBombs);
+      this.physics.add.collider(this.bombs, this.player);
+      this.physics.add.collider(this.bombs, this.platformGroup);
+      this.physics.add.overlap(
+        this.player,
+        this.bombs,
+        this.collectBomb,
+        null,
+        this
+      );
       this.cats.children.iterate(this.addCats);
       this.physics.add.collider(this.cats, this.player);
       this.physics.add.collider(this.cats, this.platformGroup);

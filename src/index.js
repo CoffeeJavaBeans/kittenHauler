@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import App from '../components/App.js';
 import playGame from '../javascript/playGame';
 import resize from '../javascript/resize';
+import scoreT from '../javascript/scoreT';
 
 //main game here
 
