@@ -32,8 +32,18 @@ const create = function() {
   );
   this.player.setGravityY(this.gameOptions.playerGravity);
 
+  this.cats = this.physics.add.group({
+    key: 'adorable',
+    repeat: 20,
+    setXY: { x: 12, y: 0, stepX: 70 }
+  });
+
+  this.cats.children.iterate(this.addCats);
+
   // setting collisions between the player and the platform group
   this.physics.add.collider(this.player, this.platformGroup);
+
+  this.physics.add.overlap(this.player, this.cats, this.collectCat, null, this);
 
   // checking for input
   this.input.on('pointerdown', this.jump, this);
