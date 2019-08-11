@@ -1,3 +1,4 @@
+import Phaser from 'phaser';
 const create = function() {
   // adding background
   this.add.image(0, 0, 'background').setOrigin(0, 0);
@@ -32,18 +33,49 @@ const create = function() {
   );
   this.player.setGravityY(this.gameOptions.playerGravity);
 
-  this.cats = this.physics.add.group({
-    key: 'adorable',
-    repeat: 20,
-    setXY: { x: 12, y: 0, stepX: 70 }
-  });
+  // this.cats = this.physics.add.group({
+  //   key: 'adorable',
+  //   repeat: 20,
+  //   setXY: { x: 12, y: 10, stepX: 70 }
+  // });
 
-  this.cats.children.iterate(this.addCats);
+  // this.cats.children.iterate(this.addCats);
+
+  //setting collisions between player and the cats
+  //this.physics.add.collider(this.cats, this.platofromGroup);
+  //this.physics.add.collider(this.cats, this.player);
 
   // setting collisions between the player and the platform group
   this.physics.add.collider(this.player, this.platformGroup);
 
-  this.physics.add.overlap(this.player, this.cats, this.collectCat, null, this);
+  // setting collisions between platform and cats
+  //this.physics.add.collider(this.cats, this.platformGroup);
+
+  //this.physics.add.overlap(this.player, this.cats, this.collectCat, null, this);
+
+  this.timedEvent = this.time.addEvent({
+    delay: 6000,
+    callback: function() {
+      this.cats = this.physics.add.group({
+        key: 'adorable',
+        repeat: 5,
+        setXY: { x: 12, y: 10, stepX: 100 }
+      });
+
+      this.cats.children.iterate(this.addCats);
+      this.physics.add.collider(this.cats, this.player);
+      this.physics.add.collider(this.cats, this.platformGroup);
+      this.physics.add.overlap(
+        this.player,
+        this.cats,
+        this.collectCat,
+        null,
+        this
+      );
+    },
+    callbackScope: this,
+    loop: true
+  });
 
   // checking for input
   this.input.on('pointerdown', this.jump, this);
